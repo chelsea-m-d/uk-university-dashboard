@@ -521,7 +521,7 @@ function lineChart(canvasId, values, compareValues, name, compareName) {
       },
       // Starting at zero stops small changes looking dramatic
       scales: {
-        x: { ticks: { maxRotation: 0, autoSkip: true } },
+        x: { ticks: { maxRotation: 0, autoSkip: true, autoSkipPadding: 16 } },
         y: { beginAtZero: true, ticks: { callback: (v) => fmt.format(v) } },
       },
     },
@@ -587,7 +587,7 @@ function shareChart(canvasId, groups, order, otherGroups, name, otherName) {
         },
       },
       scales: {
-        x: { stacked: true, ticks: { maxRotation: 0, autoSkip: true } },
+        x: { stacked: true, ticks: { maxRotation: 0, autoSkip: true, autoSkipPadding: 16 } },
         y: { stacked: true, max: 100, ticks: { callback: (v) => `${v}%` } },
       },
     },

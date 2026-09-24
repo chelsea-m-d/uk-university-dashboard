@@ -112,9 +112,12 @@ select {
 .pair-note { font-size: 0.9rem; margin: -0.5rem 0 0.75rem; }
 .pair-note .swatch { display: inline-block; width: 0.8em; height: 0.8em; margin-right: 0.3em; vertical-align: -0.05em; border-radius: 2px; }
 
-/* When comparing, give the breakdown charts the full width so the paired bars have room */
-.grid.comparing .panel { grid-column: span 6; }
-.grid.comparing .panel.wide { grid-column: span 3; }
+/* When comparing, give the breakdown charts the full width so the paired bars have room.
+   Only on wider screens: on phones every panel is already full width (see the media query below). */
+@media (min-width: 901px) {
+  .grid.comparing .panel { grid-column: span 6; }
+  .grid.comparing .panel.wide { grid-column: span 3; }
+}
 
 /* Share and download */
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 1.25rem; }
