@@ -2,7 +2,7 @@
 
 An interactive dashboard showing how student numbers at every UK university and college have changed from 2014/15 to 2024/25, and how each one compares with providers of a similar size. Built with Python (pandas) for the data work and HTML, CSS and JavaScript (Chart.js) for the dashboard, using official open data from HESA.
 
-**[View the live dashboard](https://chelseamhodgkins.github.io/uk-university-dashboard/dashboard/)**
+**[View the live dashboard](https://chelsea-m-d.github.io/uk-university-dashboard/dashboard/)**
 
 ![Screenshot of the dashboard](docs/screenshot.png)
 
@@ -80,7 +80,7 @@ The cleaned dataset (`data/processed/enrolments_clean.csv`) has 32,480 rows and 
 You'll need Python 3.
 
 ```
-git clone https://github.com/chelseamhodgkins/uk-university-dashboard.git
+git clone https://github.com/chelsea-m-d/uk-university-dashboard.git
 cd uk-university-dashboard
 python -m venv .venv
 .venv\Scripts\activate        # on Mac or Linux: source .venv/bin/activate
