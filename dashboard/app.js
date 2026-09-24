@@ -44,7 +44,8 @@ Chart.defaults.maintainAspectRatio = false;
 
 async function init() {
   try {
-    const response = await fetch("data.json");
+    // "no-cache" makes the browser check for a newer data.json each time, so data updates show straight away
+    const response = await fetch("data.json", { cache: "no-cache" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     DATA = await response.json();
   } catch (error) {
