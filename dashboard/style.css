@@ -1,0 +1,174 @@
+:root {
+  --bg: #EEF1F0;
+  --surface: #FFFFFF;
+  --ink: #1B2A33;
+  --muted: #46555C;
+  --line: #D3DADA;
+  --primary: #1F5F8B;
+  --compare: #B8860B;
+  --radius: 6px;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+}
+
+main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+a { color: var(--primary); }
+a:focus-visible, select:focus-visible { outline: 3px solid var(--compare); outline-offset: 2px; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* Site title: says what the page is before anything else */
+.site { max-width: 46rem; margin-bottom: 2rem; }
+.site-title { font-size: 1.15rem; font-weight: 600; margin: 0 0 0.35rem; color: var(--primary); }
+.intro { color: var(--muted); margin: 0; }
+.updated { color: var(--muted); font-size: 0.95rem; margin: 0.5rem 0 0; }
+
+/* Hero: the university name is the headline and the control */
+.hero { max-width: 62rem; margin-bottom: 2rem; }
+
+.select-wrap { position: relative; display: inline-block; max-width: 100%; }
+.select-wrap::after {
+  content: ""; position: absolute; right: 0.9rem; top: 50%;
+  width: 0.55em; height: 0.55em; margin-top: -0.4em;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg); pointer-events: none;
+}
+
+select {
+  appearance: none; -webkit-appearance: none;
+  font: inherit; color: inherit; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 0.45rem 2.4rem 0.45rem 0.75rem; max-width: 100%; cursor: pointer;
+}
+
+.hero-select input {
+  width: 100%;
+  font: inherit; color: inherit;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+  background: transparent; border: none; border-bottom: 3px solid var(--primary);
+  border-radius: 0; padding: 0.1rem 0 0.35rem;
+  text-overflow: ellipsis;
+}
+.hero-select input::placeholder { color: var(--muted); font-weight: 500; }
+.hero-select input:focus { outline: none; border-bottom-color: var(--compare); }
+.hero-select input::-webkit-calendar-picker-indicator { display: none !important; }
+.hint { color: var(--muted); font-size: 1rem; margin: 0.5rem 0 0; }
+
+.summary { font-size: clamp(1.1rem, 2vw, 1.35rem); max-width: 46rem; margin: 1.25rem 0 0.5rem; }
+.summary strong { font-weight: 600; }
+.summary-line { display: flex; gap: 0.75rem; align-items: baseline; }
+.summary-line + .summary-line { margin-top: 0.6rem; }
+.summary-name { font-weight: 600; }
+.key { flex: none; width: 1.75rem; transform: translateY(-0.3em); }
+.key-main { border-top: 3px solid var(--primary); }
+.key-compare { border-top: 3px dashed var(--compare); }
+.caveat { color: var(--muted); font-size: 0.95rem; max-width: 46rem; margin: 0.5rem 0; }
+
+.compare { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; color: var(--muted); }
+.compare input {
+  font: inherit; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 0.45rem 0.75rem; min-width: 18rem;
+}
+.compare input:focus { outline: 3px solid var(--compare); outline-offset: 1px; }
+.compare input::-webkit-calendar-picker-indicator { display: none !important; }
+.compare button {
+  font: inherit; font-size: 0.9rem; color: var(--primary);
+  background: none; border: none; padding: 0.25rem; cursor: pointer; text-decoration: underline;
+}
+.compare button:focus-visible { outline: 3px solid var(--compare); outline-offset: 2px; }
+
+/* Charts */
+.grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.25rem; }
+.panel {
+  grid-column: span 2;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.25rem 1.25rem 1rem; min-width: 0;
+}
+.panel.wide { grid-column: span 3; }
+.panel h2 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.note { color: var(--muted); font-size: 0.9rem; margin: 0.25rem 0 1rem; min-height: 2.8em; }
+.chart { position: relative; height: 260px; }
+.pair-note { font-size: 0.9rem; margin: -0.5rem 0 0.75rem; }
+.pair-note .swatch { display: inline-block; width: 0.8em; height: 0.8em; margin-right: 0.3em; vertical-align: -0.05em; border-radius: 2px; }
+
+/* When comparing, give the breakdown charts the full width so the paired bars have room */
+.grid.comparing .panel { grid-column: span 6; }
+.grid.comparing .panel.wide { grid-column: span 3; }
+
+/* Share and download */
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 1.25rem; }
+.action {
+  font: inherit; font-size: 0.95rem; color: var(--primary); background: var(--surface);
+  border: 1px solid var(--primary); border-radius: var(--radius); padding: 0.45rem 0.9rem; cursor: pointer;
+}
+.action:hover { background: #E4ECF3; }
+.action:focus-visible { outline: 3px solid var(--compare); outline-offset: 2px; }
+.action-status { color: var(--ink); font-size: 0.95rem; }
+
+/* Benchmark table */
+.benchmark { margin-bottom: 1.25rem; }
+.benchmark .note { min-height: 0; max-width: 46rem; }
+.benchmark h3 { font-size: 1rem; font-weight: 600; margin: 1.75rem 0 0.25rem; }
+.benchmark h3:first-child { margin-top: 0.75rem; }
+.pair-table td { width: 24%; }
+.pair-table th[scope="col"] .key { display: inline-block; width: 1.25rem; margin-right: 0.4rem; vertical-align: middle; transform: none; }
+.val { display: block; font-weight: 600; font-size: 1rem; }
+.sub { display: block; color: var(--muted); font-size: 0.85rem; }
+.size-warning { font-size: 0.95rem; margin: 0.5rem 0 0; max-width: 46rem; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+caption { text-align: left; font-weight: 600; padding: 0.5rem 0; }
+th, td { text-align: left; padding: 0.55rem 0.75rem 0.55rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { font-weight: 600; color: var(--muted); border-bottom-width: 2px; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+.benchmark td:first-child { width: 38%; }
+.verdict { color: var(--muted); font-weight: 400; }
+
+/* "Show the data as a table" under each chart */
+.data-table { margin-top: 0.75rem; }
+.data-table summary { cursor: pointer; color: var(--primary); font-size: 0.95rem; padding: 0.25rem 0; width: fit-content; }
+.data-table summary:focus-visible { outline: 3px solid var(--compare); outline-offset: 2px; }
+.data-table table { font-size: 0.85rem; margin-top: 0.5rem; }
+.data-table th, .data-table td { padding: 0.35rem 0.6rem 0.35rem 0; }
+
+.about { max-width: 46rem; margin-top: 3rem; color: var(--muted); }
+.about h2 { color: var(--ink); font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.about p { margin: 0 0 0.9rem; }
+.credit { color: var(--ink); }
+
+@media (max-width: 900px) {
+  .panel, .panel.wide { grid-column: span 6; }
+  .note { min-height: 0; }
+}
+@media (max-width: 640px) {
+  /* On small screens, show each benchmark row as a small labelled block instead of a cramped table */
+  .benchmark thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .benchmark tr { display: block; padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+  .benchmark th, .benchmark td { display: block; border: 0; padding: 0.1rem 0; text-align: left; width: auto !important; white-space: normal; }
+  .benchmark td::before { content: attr(data-label) ": "; font-weight: 600; color: var(--ink); }
+}
+@media (max-width: 560px) {
+  main { padding: 2rem 1rem 3rem; }
+  .compare input { min-width: 0; width: 100%; }
+}

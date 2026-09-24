@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UK university student numbers</title>
+  <meta name="description" content="See how student numbers at any UK university or college have changed over the last decade, and how each compares with similar-sized providers. Built with official HESA data.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F5F8B'/%3E%3Crect x='7' y='17' width='4' height='8' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' fill='white'/%3E%3Crect x='21' y='7' width='4' height='18' fill='white'/%3E%3C/svg%3E">
+
+  <!-- Preview card when the link is shared on LinkedIn, Slack, Teams and so on -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="UK university student numbers dashboard">
+  <meta property="og:description" content="How student numbers at every UK university and college have changed, and how each compares with similar-sized providers. Built with official HESA data.">
+  <meta property="og:url" content="https://chelseamhodgkins.github.io/uk-university-dashboard/dashboard/">
+  <meta property="og:image" content="https://chelseamhodgkins.github.io/uk-university-dashboard/docs/screenshot.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <main>
+    <header class="site">
+      <h1 id="site-title" class="site-title">UK university student numbers</h1>
+      <p id="intro" class="intro">See how student numbers at any UK university or college have changed, and how that compares with similar-sized providers. All figures are official data from HESA.</p>
+      <p id="updated" class="updated"></p>
+    </header>
+
+    <section class="hero" aria-label="Choose a university">
+      <label for="provider" class="visually-hidden">Search for a university</label>
+      <div class="hero-select">
+        <input id="provider" list="provider-list" type="text" autocomplete="off" spellcheck="false"
+               placeholder="Search for a university" aria-describedby="provider-hint">
+        <datalist id="provider-list"></datalist>
+      </div>
+      <p id="provider-hint" class="hint">Click the name and start typing to switch university.</p>
+      <p id="summary" class="summary" aria-live="polite">Loading data…</p>
+      <p id="caveat" class="caveat" hidden></p>
+      <div class="compare">
+        <label for="compare">Compare with</label>
+        <input id="compare" list="provider-list" type="text" autocomplete="off" spellcheck="false"
+               placeholder="Type a university name">
+        <button id="clear-compare" type="button" hidden>Remove comparison</button>
+      </div>
+      <div class="actions">
+        <button id="copy-link" class="action" type="button">Copy link to this view</button>
+        <button id="download" class="action" type="button">Download these figures (CSV)</button>
+        <span id="action-status" class="action-status" role="status"></span>
+      </div>
+    </section>
+
+    <section class="panel benchmark" aria-labelledby="bench-title">
+      <h2 id="bench-title">How it compares with similar-sized providers</h2>
+      <div id="bench-body"></div>
+    </section>
+
+    <section class="grid" aria-label="Charts">
+      <article class="panel wide">
+        <h2>Total students</h2>
+        <p class="note">All students enrolled in each academic year.</p>
+        <div class="chart"><canvas id="totalChart" role="img" aria-label="Line chart of total students by year. The same figures are in the table below."></canvas></div>
+        <details class="data-table"><summary>Show the data as a table</summary><div class="table-wrap"></div></details>
+      </article>
+
+      <article class="panel wide">
+        <h2>New entrants</h2>
+        <p class="note">Students starting their course that year. Most stay for several years, so a drop here usually shows up in total numbers later.</p>
+        <div class="chart"><canvas id="entrantChart" role="img" aria-label="Line chart of new entrants by year. The same figures are in the table below."></canvas></div>
+        <details class="data-table"><summary>Show the data as a table</summary><div class="table-wrap"></div></details>
+      </article>
+
+      <article class="panel">
+        <h2>Level of study</h2>
+        <p class="note">Share of students each year.</p>
+        <p class="pair-note" hidden></p>
+        <div class="chart"><canvas id="levelChart" role="img" aria-label="Stacked bar chart of students by level of study. The same figures are in the table below."></canvas></div>
+        <details class="data-table"><summary>Show the data as a table</summary><div class="table-wrap"></div></details>
+      </article>
+
+      <article class="panel">
+        <h2>Where students come from</h2>
+        <p class="note">Based on their permanent address before starting the course.</p>
+        <p class="pair-note" hidden></p>
+        <div class="chart"><canvas id="domicileChart" role="img" aria-label="Stacked bar chart of students by permanent address. The same figures are in the table below."></canvas></div>
+        <details class="data-table"><summary>Show the data as a table</summary><div class="table-wrap"></div></details>
+      </article>
+
+      <article class="panel">
+        <h2>Full-time and part-time</h2>
+        <p class="note">Share of students each year.</p>
+        <p class="pair-note" hidden></p>
+        <div class="chart"><canvas id="modeChart" role="img" aria-label="Stacked bar chart of full-time and part-time students. The same figures are in the table below."></canvas></div>
+        <details class="data-table"><summary>Show the data as a table</summary><div class="table-wrap"></div></details>
+      </article>
+    </section>
+
+    <section class="about">
+      <h2>About this data</h2>
+      <p>Figures come from HESA’s <a href="https://www.hesa.ac.uk/data-and-analysis/students/table-1">Table 1: HE student enrolments by HE provider</a>, used under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0</a> licence. Every year was checked against HESA’s published UK total before being used here.</p>
+      <p>HESA rounds every figure to the nearest 5 to protect individual students, so breakdowns may not add up exactly to the total. For universities with very few students, percentages can swing sharply because of this rounding.</p>
+      <p><span id="coverage">HESA’s data has grown to cover more providers over time.</span> A gap in the early years usually means a provider wasn’t included in HESA’s data yet, not that it had no students. For the same reason, this page compares universities with themselves and with each other rather than showing a UK-wide trend.</p>
+      <p>“Similar-sized providers” are those in the same size band in the most recent year. The typical figure is the median, the middle value, so a few unusual providers can’t pull it up or down.</p>
+      <p class="credit">Built by Chelsea Day. <a href="https://github.com/chelseamhodgkins/uk-university-dashboard">View the code and data cleaning on GitHub</a>.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
